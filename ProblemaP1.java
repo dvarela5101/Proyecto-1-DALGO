@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
+import java.util.ArrayList;
 
 /**
  * Autor(es): <completar nombre(s)>
@@ -97,7 +98,50 @@ public class ProblemaP1 {
         //
         // Retornar la energia minima si existe una ruta, o -1 en caso
         // contrario (se traduce en la salida "NO EXISTE").
+        long INF = Long.MAX_VALUE/4;
+        long[][] dist = new long[n+1][m+1]; //dist[i][j] es el minimo costo para llegar a (i,j)
+        for (int i=1; i<=n; i++){
+            for (int j=1; j<=m; j++){
+                dist[i][j] = INF; //la distancia inicial para llegar a todas se pone como infinito
+            }
 
-        return -1;
+        }
+        dist[1][1]=0; //siempre la celda inicial es 0 porque no gasta energia
+        ArrayList<int[]>[] salen= new ArrayList[n+1]; //salen[i] es la lista de portales que tienen origen en la orbita i
+        for (int i=1; i<=n;i++){
+            salen[i] = new ArrayList<>();
+        }
+        for(int k=0;k<portales.length;k++){
+            int orbitaOrigen = portales[k][0];
+            salen[orbitaOrigen].add(portales[k]);
+
+        }
+
+
+
+        for(int i=1;i<=n;i++){ //pasar de orbita en orbita, nunca se devuelve
+            for (int j=2;j<=m;j++){ //pasar de posiciones de izquierda a derecha
+                long nuevoCosto = dist[i][j-1]+energia[i];
+                dist[i][j]=Math.min(dist[i][j],nuevoCosto);
+            }
+            for(int j=m-1; j>=1;j--){ // de derecha a izquierda
+                long nuevoCosto=dist[i][j+1]+energia[i];
+                dist[i][j]=Math.min(dist[i][j],nuevoCosto);
+            }
+
+            for (int[]portal:salen[i]){//para cada poratl que sale de la orbita i 
+                int ys=portal[1];
+                int xe=portal[2];
+                int ye=portal[3];
+                dist[xe][ye]=Math.min(dist[xe][ye],dist[i][ys]);
+            }
+        }
+        if (dist[n][m]>=INF){
+            return -1; //no se encuentra la ruta
+
+        }
+        return dist[n][m];
     }
 }
+//COMPLEJIDAD TEMPORAL= O(nm+p), se recorren todas las posiciones y todos los portales
+//COMPLEJIDAD ESPACIAL = O(nm+p), se guarda en una estructura las posiciones y otra portales

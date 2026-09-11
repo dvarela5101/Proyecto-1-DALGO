@@ -4,14 +4,7 @@ import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.util.Arrays;
 
-/**
- * Autor(es): <completar nombre(s)>
- *
- * ISIS 2112 - Diseno de Algoritmos
- * Semestre 2026-20 - Proyecto, Parte 1
- * Problema: Termion - ruta de energia minima en un campo de n orbitas
- * por m posiciones, con portales de teletransportacion sin costo.
- */
+
 public class ProblemaP1 {
 
     public static void main(String[] args) throws IOException {
@@ -64,18 +57,6 @@ public class ProblemaP1 {
     /**
      * Calcula la energia minima para ir de (1,1) a (n,m).
      *
-     * Idea: como todo portal va de una orbita a otra mas adelante (xs < xe),
-     * el problema visto por orbitas es un DAG, asi que basta con recorrerlas
-     * una sola vez, en orden 1..n (no hace falta Dijkstra ni cola de
-     * prioridad). Dentro de una misma orbita el movimiento es en linea
-     * recta, asi que el costo minimo de cada posicion sale con dos barridos
-     * (izquierda->derecha y derecha->izquierda).
-     *
-     * Detalles de implementacion: "dist" es un arreglo 1D en vez de una
-     * matriz (la celda (i,j) vive en el indice i*ancho+j), y los portales
-     * se agrupan por orbita de origen con un counting sort (estilo CSR) en
-     * vez de una lista por orbita. Son solo optimizaciones de memoria; el
-     * algoritmo de fondo es el mismo.
      *
      * @param n        numero de orbitas (1 <= n <= 10^3)
      * @param m        posiciones por orbita (1 <= m <= 10^3)
@@ -107,7 +88,7 @@ public class ProblemaP1 {
             conteo[xs]++;
         }
 
-        // Prefix sum: inicio[i] = donde empieza el bloque de portales de
+        // inicio[i] = donde empieza el bloque de portales de
         // la orbita i dentro de los arreglos planos de abajo
         int[] inicio = new int[n + 2];
         for (int i = 1; i <= n; i++) {
@@ -116,8 +97,8 @@ public class ProblemaP1 {
 
         // Colocamos cada portal en su casillero final. "cursor" es una
         // copia de "inicio" que se va avanzando a medida que ubicamos
-        // portales, para no perder los limites originales de cada bloque
-        // (que se vuelven a usar mas abajo, al procesar cada orbita).
+        // portales, para no perder los limites originales de cada bloque.
+        
         int[] cursor = inicio.clone();
         int[] portalYS = new int[p]; // posicion de origen del portal, dentro de su orbita
         int[] portalXE = new int[p]; // orbita de destino del portal

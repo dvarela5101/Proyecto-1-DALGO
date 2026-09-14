@@ -6,9 +6,9 @@ import java.util.Arrays;
 
 /**
  * Autor(es): 
- * David Varela
- * Mariana Rodríguez
- * Valentina RojasS
+ * David Varela 202321469
+ * Mariana Rodríguez 202421258
+ * Valentina Rojas 202420927
  *
  * ISIS 2112 - Diseno de Algoritmos
  * Semestre 2026-20 - Proyecto, Parte 1

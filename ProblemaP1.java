@@ -4,7 +4,17 @@ import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.util.Arrays;
 
-
+/**
+ * Autor(es): 
+ * David Varela
+ * Mariana Rodríguez
+ * Valentina RojasS
+ *
+ * ISIS 2112 - Diseno de Algoritmos
+ * Semestre 2026-20 - Proyecto, Parte 1
+ * Problema: Termion - ruta de energia minima en un campo de n orbitas
+ * por m posiciones, con portales de teletransportacion sin costo.
+ */
 public class ProblemaP1 {
 
     public static void main(String[] args) throws IOException {
